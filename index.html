@@ -6,6 +6,8 @@
     <title>MNA circuit analysis</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/7.3.0/math.min.js"></script>
     <!-- CSS only -->
+    <link rel="stylesheet" href="styles.css" />
+
     <link
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
@@ -15,7 +17,7 @@
   </head>
   <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <a class="navbar-brand" href="https://baladhinesh.github.io/MNA-Circuit-Solver/">MNA Circuit Solver</a>
+      <a class="navbar-brand" href="#">MNA circuit solver</a>
       <button
         class="navbar-toggler"
         type="button"
@@ -31,30 +33,34 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
-            <a class="nav-link" href="docs.html">Docs</a>
+            <a class="nav-link" href="#">Docs</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/contact.html">Contact</a>
+            <a class="nav-link" href="#">Contact</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/feedback.html">Feedback</a>
+            <a class="nav-link" href="#">Feedback</a>
           </li>
         </ul>
       </div>
     </nav>
-    <div class="input-group">
-      <!-- <div class="input-group-prepend"> -->
-      <span class="input-group-text input-group-prepend" id="basic-addon1"
-        >Enter the number of nodes:</span
-      >
-      <!-- </div> -->
-      <input type="text" name="nodes" id="nodes" class="form-control" />
-      <div class="input-group-prepend">
-        <span class="input-group-text" id="basic-addon1"
-          >Enter the number of elements:</span
-        >
+    <div class="input">
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text input-group-prepend" id="basic-addon1"
+            >Enter the number of nodes:</span
+          >
+        </div>
+        <input type="text" name="nodes" id="nodes" class="form-control" />
       </div>
-      <input type="text" name="elements" id="elements" class="form-control" />
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="basic-addon1"
+            >Enter the number of elements:</span
+          >
+        </div>
+        <input type="text" name="elements" id="elements" class="form-control" />
+      </div>
       <button onclick="showdialog()" class="btn btn-dark">OK</button>
     </div>
 
