@@ -1,0 +1,29 @@
+.ele-code {
+  margin: auto 20%;
+}
+.ele-code-pad {
+  margin: 20px;
+}
+.values {
+  margin: auto 20%;
+}
+.value {
+  margin: 20px;
+}
+.jumbotron {
+  margin: 20px auto;
+}
+.heading {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+.values button {
+  margin: 30px auto;
+}
+.card {
+  width: 18rem;
+  align-items: center;
+  margin: 30px auto;
+}
+.input {
+  margin: 30px 20%;
+}
