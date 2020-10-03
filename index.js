@@ -262,26 +262,30 @@ function showdialog() {
   var elements = parseInt(document.getElementById("elements").value);
 
   var form = document.createElement("form");
-  form.setAttribute("class", "input-group");
+  form.setAttribute("class", "ele-code");
 
   for (i = 0; i < elements; i++) {
+    var div = document.createElement("div");
+    div.setAttribute("class", "input-group ele-code-pad");
+
     var span = document.createElement("span");
     span.setAttribute("class", "input-group-text input-group-prepend");
     span.setAttribute("id", "basic-addon1");
     span.innerHTML = "Element kind of " + (i + 1);
-    form.appendChild(span);
+    div.appendChild(span);
 
     var FN = document.createElement("input");
     FN.setAttribute("type", "text");
     FN.setAttribute("id", "ele_code" + (i + 1));
     FN.setAttribute("class", "form-control");
-    form.appendChild(FN);
+    div.appendChild(FN);
+    form.appendChild(div);
   }
   var s = document.createElement("button");
   s.innerHTML = "Submit";
   s.setAttribute("onclick", "getInputs()");
   s.setAttribute("type", "button");
-  s.setAttribute("class", "btn btn-dark");
+  s.setAttribute("class", "btn btn-dark submit");
 
   form.appendChild(s);
 
@@ -299,20 +303,27 @@ function getInputs() {
     input_fields.push(input_field);
   }
   var form = document.createElement("form");
-  // form.setAttribute("class", "input-group");
+  form.setAttribute("class", "container values");
 
   for (i = 0; i < input_fields.length; i++) {
+    var div1 = document.createElement("div");
+    div1.setAttribute("class", "jumbotron");
+    var heading = document.createElement("h3");
+    heading.innerHTML = "Element" + (i + 1) + " :";
+    div1.appendChild(heading);
+
     for (var j = 0; j < input_fields[i].length; j++) {
       // var LABEL = document.createElement("label");
       // LABEL.innerHTML = "Element" + (i + 1) + " :" + input_fields[i][j];
       // form.appendChild(LABEL);
+
       var div = document.createElement("div");
-      div.setAttribute("class", "input-group");
+      div.setAttribute("class", "input-group value");
 
       var span = document.createElement("span");
       span.setAttribute("class", "input-group-text input-group-prepend");
       span.setAttribute("id", "basic-addon1");
-      span.innerHTML = "Element" + (i + 1) + " :" + input_fields[i][j];
+      span.innerHTML = input_fields[i][j];
       div.appendChild(span);
 
       var IN = document.createElement("input");
@@ -320,14 +331,15 @@ function getInputs() {
       IN.setAttribute("id", i + "&" + j);
 
       div.appendChild(IN);
-      form.appendChild(div);
+      div1.appendChild(div);
     }
+    form.appendChild(div1);
   }
   var s = document.createElement("button");
   s.innerHTML = "Submit";
   s.setAttribute("onclick", "printResults()");
   s.setAttribute("type", "button");
-  s.setAttribute("class", "btn btn-dark");
+  s.setAttribute("class", "btn btn-dark submit");
 
   form.appendChild(s);
 
@@ -498,6 +510,16 @@ function printResults() {
     var n_k = parseInt(volt_src_list[obj].node_high) - 1;
     var n_l = parseInt(volt_src_list[obj].node_low) - 1;
     var voltage = parseFloat(volt_src_list[obj].voltage);
+    var count = 0;
+    var new_var = "I_" + String(n_k + 1) + "_" + String(n_l + 1);
+    for (var i = 0; i < var_list.length; i++) {
+      if (var_list[i] == new_var) {
+        count = count + 1;
+      }
+    }
+    if (count == 0) {
+      var_list.push(new_var);
+    }
 
     if (n_k != -1 && n_l != -1) {
       cond_matrix[n_k][parseInt(nodes) + obj_volt_src_cnt] += 1;
@@ -1143,10 +1165,37 @@ function printResults() {
   output_matrix = math.multiply(cond_matrix_inv, curr_matrix);
   console.log(output_matrix);
   console.log("Success");
-
   var output = document.createElement("form");
-  var matrix = document.createElement("label");
-  matrix.innerHTML = output_matrix;
-  output.appendChild(matrix);
+  output.setAttribute("class", "output card card-body text-white bg-dark mb-3");
+
+  var header = document.createElement("div");
+  header.setAttribute("class", "card-header");
+  header.innerHTML = "Output";
+  output.appendChild(header);
+
+  for (var i = 0; i < var_list.length; i++) {
+    if (var_list[i][0] == "V") {
+      console.log(var_list[i] + " = " + output_matrix[i][0].toFixed(2) + " V ");
+      var matrix = document.createElement("h2");
+      matrix.setAttribute("class", "card-text");
+      matrix.innerHTML =
+        var_list[i] + " = " + output_matrix[i][0].toFixed(2) + " V ";
+      output.appendChild(matrix);
+    }
+
+    if (var_list[i][0] == "I") {
+      var matrix = document.createElement("h2");
+      matrix.innerHTML =
+        var_list[i] + " = " + output_matrix[i][0].toFixed(2) + " A ";
+      matrix.setAttribute("class", "card-text");
+
+      output.appendChild(matrix);
+
+      console.log(var_list[i] + " = " + output_matrix[i][0].toFixed(2) + " A");
+    }
+  }
+
   document.body.appendChild(output);
+
+  window.scrollTo(0, document.body.scrollHeight);
 }
